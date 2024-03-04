@@ -1,11 +1,10 @@
-// app.js
 let buttonArray = ["red", "green", "blue", "yellow"];
 let randomGeneratedButton = [];
 let userGeneratedButton = [];
 let level = 0;
 let started = false;
 
-$(document).on("click touchstart", function () {
+$(document).on("touchstart", function (event) {
     if (!started) {
         $("h2").text("LEVEL-0");
         started = true;
@@ -14,7 +13,7 @@ $(document).on("click touchstart", function () {
 });
 
 // User interactions
-$("button").on("click touchstart", function (event) {
+$("button").on("touchstart", function (event) {
     event.preventDefault(); // Prevent default behavior of touch events
     let userClickButton = $(this).attr("class");
     userGeneratedButton.push(userClickButton);
@@ -27,7 +26,7 @@ $("button").on("click touchstart", function (event) {
 
 //checking answer
 function checkAnswer(answer) {
-    if (userGeneratedButton[answer] !== randomGeneratedButton[answer]) {
+    if (userGeneratedButton[answer] === randomGeneratedButton[answer]) {
         $("h2").text("Game Over, press any key to restart");
         $("body").css("background-color", "red");
         setTimeout(function(){
