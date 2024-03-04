@@ -1,10 +1,11 @@
+// script.js
 let buttonArray = ["red", "green", "blue", "yellow"];
 let randomGeneratedButton = [];
 let userGeneratedButton = [];
 let level = 0;
 let started = false;
 
-$(document).keypress(function () {
+$(document).on("click touchstart", function () {
     if (!started) {
         $("h2").text("LEVEL-0");
         started = true;
@@ -13,7 +14,8 @@ $(document).keypress(function () {
 });
 
 // User interactions
-$("button").click(function () {
+$("button").on("click touchstart", function (event) {
+    event.preventDefault(); // Prevent default behavior of touch events
     let userClickButton = $(this).attr("class");
     userGeneratedButton.push(userClickButton);
     $(`.${userClickButton}`).fadeOut(200).fadeIn(100, function () {
@@ -62,3 +64,29 @@ function restart() {
     started = false;
     level = 0;
 }
+
+// Check if the device is a mobile device
+function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+// Add start and restart buttons for mobile devices
+$(document).ready(function() {
+    if (isMobileDevice()) {
+        $("body").append("<button id='startButton'>Start</button>");
+        $("body").append("<button id='restartButton'>Restart</button>");
+
+        $("#startButton").on("click touchstart", function() {
+            if (!started) {
+                $("h2").text("LEVEL-0");
+                started = true;
+                gameStart();
+            }
+        });
+
+        $("#restartButton").on("click touchstart", function() {
+            restart();
+            $("h2").text("Press Start to Begin");
+        });
+    }
+});
