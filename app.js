@@ -1,10 +1,11 @@
+// app.js
 let buttonArray = ["red", "green", "blue", "yellow"];
 let randomGeneratedButton = [];
 let userGeneratedButton = [];
 let level = 0;
 let started = false;
 
-$(document).keypress(function () {
+$(document).on("click touchstart", function () {
     if (!started) {
         $("h2").text("LEVEL-0");
         started = true;
@@ -13,7 +14,7 @@ $(document).keypress(function () {
 });
 
 // User interactions
-$("button").click(function () {
+$("button").on("click touchstart", function () {
     let userClickButton = $(this).attr("class");
     userGeneratedButton.push(userClickButton);
     $(`.${userClickButton}`).fadeOut(200).fadeIn(100, function () {
