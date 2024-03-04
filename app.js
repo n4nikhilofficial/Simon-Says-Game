@@ -14,7 +14,8 @@ $(document).on("click touchstart", function () {
 });
 
 // User interactions
-$("button").on("click touchstart", function () {
+$("button").on("click touchstart", function (event) {
+    event.preventDefault(); // Prevent default behavior of touch events
     let userClickButton = $(this).attr("class");
     userGeneratedButton.push(userClickButton);
     $(`.${userClickButton}`).fadeOut(200).fadeIn(100, function () {
