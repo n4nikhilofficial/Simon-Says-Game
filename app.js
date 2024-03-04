@@ -4,7 +4,7 @@ let userGeneratedButton = [];
 let level = 0;
 let started = false;
 
-$(document).on("touchstart", function (event) {
+$(document).keypress(function () {
     if (!started) {
         $("h2").text("LEVEL-0");
         started = true;
@@ -13,8 +13,7 @@ $(document).on("touchstart", function (event) {
 });
 
 // User interactions
-$("button").on("touchstart", function (event) {
-    event.preventDefault(); // Prevent default behavior of touch events
+$("button").click(function () {
     let userClickButton = $(this).attr("class");
     userGeneratedButton.push(userClickButton);
     $(`.${userClickButton}`).fadeOut(200).fadeIn(100, function () {
@@ -26,7 +25,7 @@ $("button").on("touchstart", function (event) {
 
 //checking answer
 function checkAnswer(answer) {
-    if (userGeneratedButton[answer] === randomGeneratedButton[answer]) {
+    if (userGeneratedButton[answer] !== randomGeneratedButton[answer]) {
         $("h2").text("Game Over, press any key to restart");
         $("body").css("background-color", "red");
         setTimeout(function(){
